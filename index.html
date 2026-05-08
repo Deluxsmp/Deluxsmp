@@ -6,183 +6,90 @@
     <title>Delux SMP | Best Minecraft Server</title>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* এনিমেশন */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         body { 
-            margin: 0; 
-            font-family: 'Hind Siliguri', sans-serif; 
-            color: #ffffff; 
-            text-align: center; 
-            line-height: 1.6;
-            background-color: #0a0a0a;
-            overflow-x: hidden;
+            margin: 0; font-family: 'Hind Siliguri', sans-serif; 
+            color: #ffffff; text-align: center; line-height: 1.6;
+            background-color: #0a0a0a; overflow-x: hidden;
         }
 
-        /* ব্যাকগ্রাউন্ড সেটআপ */
         .bg-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), 
                         url('https://images.unsplash.com/photo-1627398242454-45a1465c2479?q=80&w=1920&auto=format&fit=crop'); 
-            background-size: cover;
-            background-position: center;
+            background-size: cover; background-position: center;
         }
         
-        .content-wrapper {
-            position: relative;
-            z-index: 1;
-            padding: 0 20px;
-        }
+        .content-wrapper { position: relative; z-index: 1; padding: 0 20px; }
 
-        header { 
-            padding: 100px 20px 60px; 
-            animation: fadeInUp 0.8s ease-out;
-        }
+        header { padding: 100px 20px 60px; animation: fadeInUp 0.8s ease-out; }
 
-        h1 { 
-            font-size: clamp(2.5rem, 8vw, 4rem); 
-            color: #ff4d4d; 
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin: 0;
-            font-weight: 700;
-        }
+        h1 { font-size: clamp(2.5rem, 8vw, 4rem); color: #ff4d4d; text-transform: uppercase; letter-spacing: 4px; margin: 0; font-weight: 700; }
 
-        header p { 
-            font-size: 1.1rem;
-            color: #ccc;
-            margin-top: 10px;
-        }
+        header p { font-size: 1.1rem; color: #ccc; margin-top: 10px; }
         
         .btn-group { margin-top: 30px; }
 
         .btn { 
-            display: inline-block; 
-            padding: 12px 28px; 
-            margin: 8px; 
-            background: rgba(255, 77, 77, 0.1);
-            color: white; 
-            text-decoration: none; 
-            border-radius: 5px; 
-            font-weight: 600; 
-            border: 1px solid #ff4d4d;
-            transition: all 0.3s ease;
+            display: inline-block; padding: 12px 28px; margin: 8px; 
+            background: rgba(255, 77, 77, 0.1); color: white; text-decoration: none; 
+            border-radius: 5px; font-weight: 600; border: 1px solid #ff4d4d; transition: 0.3s; 
         }
 
-        .btn:hover { 
-            background: #ff4d4d; 
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.3);
-        }
+        .btn:hover { background: #ff4d4d; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255, 77, 77, 0.3); }
 
-        /* Rules Section */
         .rules-container { 
-            max-width: 650px; 
-            margin: 40px auto; 
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px; 
-            overflow: hidden; 
-            text-align: left; 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            animation: fadeInUp 1s ease-out;
+            max-width: 650px; margin: 40px auto; background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px; overflow: hidden; text-align: left; 
+            border: 1px solid rgba(255, 255, 255, 0.1); animation: fadeInUp 1s ease-out;
             backdrop-filter: blur(10px);
         }
         
-        .rules-nav { 
-            background: rgba(255, 77, 77, 0.15); 
-            padding: 12px 20px; 
-            border-bottom: 1px solid rgba(255, 77, 77, 0.2); 
-        }
-
-        .rules-nav span { 
-            color: #ff4d4d; 
-            font-weight: 600; 
-            font-size: 0.85rem;
-            text-transform: uppercase;
-        }
+        .rules-nav { background: rgba(255, 77, 77, 0.15); padding: 12px 20px; border-bottom: 1px solid rgba(255, 77, 77, 0.2); }
+        .rules-nav span { color: #ff4d4d; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; }
 
         .rules-content { padding: 30px; }
-        .rules-content h2 { 
-            margin-bottom: 20px;
-            font-size: 1.6rem;
-            border-left: 4px solid #ff4d4d;
-            padding-left: 15px;
-        }
+        .rules-content h2 { margin-bottom: 20px; font-size: 1.6rem; border-left: 4px solid #ff4d4d; padding-left: 15px; }
 
         .rules-list { list-style: none; padding: 0; }
-        .rules-list li { 
-            padding: 10px 0; 
-            color: #ddd; 
-            border-bottom: 1px solid rgba(255,255,255,0.05); 
-            transition: 0.2s;
-        }
-        
-        .rules-list li::before {
-            content: '•';
-            color: #ff4d4d;
-            margin-right: 10px;
-            font-weight: bold;
-        }
+        .rules-list li { padding: 10px 0; color: #ddd; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .rules-list li::before { content: '•'; color: #ff4d4d; margin-right: 10px; }
 
-        .rules-list li:hover { color: #fff; padding-left: 5px; }
-
-        /* IP Section */
-        .info-section { 
-            padding: 60px 20px;
-            animation: fadeInUp 1.2s ease-out; 
-        }
+        .info-section { padding: 60px 20px; animation: fadeInUp 1.2s ease-out; }
 
         .ip-box { 
-            background: rgba(0, 0, 0, 0.5);
-            padding: 25px 40px; 
-            border-radius: 10px; 
-            display: inline-block; 
-            border: 1px dashed #ff4d4d; 
-            cursor: pointer;
-            transition: 0.3s;
+            background: rgba(0, 0, 0, 0.5); padding: 25px 40px; border-radius: 10px; 
+            display: inline-block; border: 1px dashed #ff4d4d; cursor: pointer; transition: 0.3s;
         }
 
-        .ip-box:hover {
-            background: rgba(255, 77, 77, 0.05);
-            border-style: solid;
-        }
+        .ip-box:hover { background: rgba(255, 77, 77, 0.05); border-style: solid; }
 
         .ip-text { font-size: 1.6rem; color: #fff; font-weight: 700; }
         .port-text { color: #ff4d4d; font-size: 1.1rem; }
         .copy-hint { display: block; font-size: 0.75rem; color: #666; margin-top: 8px; }
 
-        footer { 
-            padding: 40px; 
-            color: #555; 
-            font-size: 0.85rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
+        footer { padding: 40px; color: #555; font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.05); }
     </style>
 </head>
 <body>
-
     <div class="bg-overlay"></div>
-
     <div class="content-wrapper">
         <header>
             <h1>DELUX SMP</h1>
             <p>সেরা মাইনক্রাফট অভিজ্ঞতার জন্য আমাদের সাথে যোগ দিন</p>
             <div class="btn-group">
                 <a href="https://discord.gg/fHjZKPGPxB" target="_blank" class="btn">DISCORD</a>
-                <a href="#" class="btn">WEB STORE</a>
+                <a href="store.html" class="btn">WEB STORE</a>
                 <a href="#" class="btn">VOTE</a>
             </div>
         </header>
 
         <section class="rules-container">
-            <div class="rules-nav">
-                <span>Official Server Rules</span>
-            </div>
+            <div class="rules-nav"><span>Official Server Rules</span></div>
             <div class="rules-content">
                 <h2>সার্ভারের নিয়মাবলী</h2>
                 <ul class="rules-list">
@@ -206,7 +113,6 @@
                 <span class="copy-hint" id="copyText">Click to copy IP</span>
             </div>
         </div>
-
         <footer>&copy; 2026 Delux SMP. All rights reserved.</footer>
     </div>
 
@@ -217,10 +123,7 @@
                 const hint = document.getElementById('copyText');
                 hint.innerText = "IP Copied!";
                 hint.style.color = "#ff4d4d";
-                setTimeout(() => {
-                    hint.innerText = "Click to copy IP";
-                    hint.style.color = "#666";
-                }, 2000);
+                setTimeout(() => { hint.innerText = "Click to copy IP"; hint.style.color = "#666"; }, 2000);
             });
         }
     </script>
