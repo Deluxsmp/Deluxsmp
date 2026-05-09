@@ -26,50 +26,54 @@
         
         .content-wrapper { position: relative; z-index: 1; padding: 0 20px; }
 
-        header { padding: 100px 20px 60px; animation: fadeInUp 0.8s ease-out; }
+        header { padding: 80px 20px 40px; animation: fadeInUp 0.8s ease-out; }
 
         h1 { font-size: clamp(2.5rem, 8vw, 4rem); color: #ff4d4d; text-transform: uppercase; letter-spacing: 4px; margin: 0; font-weight: 700; }
-
         header p { font-size: 1.1rem; color: #ccc; margin-top: 10px; }
         
         .btn-group { margin-top: 30px; }
-
         .btn { 
             display: inline-block; padding: 12px 28px; margin: 8px; 
             background: rgba(255, 77, 77, 0.1); color: white; text-decoration: none; 
             border-radius: 5px; font-weight: 600; border: 1px solid #ff4d4d; transition: 0.3s; 
         }
-
         .btn:hover { background: #ff4d4d; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255, 77, 77, 0.3); }
+
+        /* Status Card Styles */
+        .status-card {
+            max-width: 400px; margin: 20px auto; background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px; padding: 15px; border: 1px solid rgba(255, 77, 77, 0.3);
+            display: flex; align-items: center; justify-content: center; gap: 15px;
+            animation: fadeInUp 1s ease-out;
+        }
+        .status-dot { width: 12px; height: 12px; border-radius: 50%; background: #555; }
+        .online { background: #2ecc71; box-shadow: 0 0 10px #2ecc71; }
+        .status-text { font-weight: 600; font-size: 1.1rem; }
 
         .rules-container { 
             max-width: 650px; margin: 40px auto; background: rgba(255, 255, 255, 0.03);
             border-radius: 12px; overflow: hidden; text-align: left; 
-            border: 1px solid rgba(255, 255, 255, 0.1); animation: fadeInUp 1s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.1); animation: fadeInUp 1.1s ease-out;
             backdrop-filter: blur(10px);
         }
         
         .rules-nav { background: rgba(255, 77, 77, 0.15); padding: 12px 20px; border-bottom: 1px solid rgba(255, 77, 77, 0.2); }
         .rules-nav span { color: #ff4d4d; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; }
-
         .rules-content { padding: 30px; }
         .rules-content h2 { margin-bottom: 20px; font-size: 1.6rem; border-left: 4px solid #ff4d4d; padding-left: 15px; }
-
         .rules-list { list-style: none; padding: 0; }
         .rules-list li { padding: 10px 0; color: #ddd; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .rules-list li::before { content: '•'; color: #ff4d4d; margin-right: 10px; }
 
-        .info-section { padding: 60px 20px; animation: fadeInUp 1.2s ease-out; }
-
+        /* IP Section Move to Bottom */
+        .info-section { padding: 60px 20px 100px; animation: fadeInUp 1.3s ease-out; }
         .ip-box { 
-            background: rgba(0, 0, 0, 0.5); padding: 25px 40px; border-radius: 10px; 
+            background: rgba(0, 0, 0, 0.5); padding: 20px 35px; border-radius: 10px; 
             display: inline-block; border: 1px dashed #ff4d4d; cursor: pointer; transition: 0.3s;
         }
-
         .ip-box:hover { background: rgba(255, 77, 77, 0.05); border-style: solid; }
-
-        .ip-text { font-size: 1.6rem; color: #fff; font-weight: 700; }
-        .port-text { color: #ff4d4d; font-size: 1.1rem; }
+        .ip-text { font-size: 1.4rem; color: #fff; font-weight: 700; }
+        .port-text { color: #ff4d4d; font-size: 1rem; }
         .copy-hint { display: block; font-size: 0.75rem; color: #666; margin-top: 8px; }
 
         footer { padding: 40px; color: #555; font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.05); }
@@ -81,6 +85,13 @@
         <header>
             <h1>DELUX SMP</h1>
             <p>সেরা মাইনক্রাফট অভিজ্ঞতার জন্য আমাদের সাথে যোগ দিন</p>
+            
+            <div class="status-card">
+                <div id="statusDot" class="status-dot"></div>
+                <div class="status-text" id="statusText">Checking server...</div>
+                <div id="playerCount" style="color: #ff4d4d; font-weight: bold;"></div>
+            </div>
+
             <div class="btn-group">
                 <a href="https://discord.gg/fHjZKPGPxB" target="_blank" class="btn">DISCORD</a>
                 <a href="store.html" class="btn">WEB STORE</a>
@@ -113,10 +124,12 @@
                 <span class="copy-hint" id="copyText">Click to copy IP</span>
             </div>
         </div>
+
         <footer>&copy; 2026 Delux SMP. All rights reserved.</footer>
     </div>
 
     <script>
+        // Copy IP Function
         function copyIP() {
             const ip = document.getElementById('serverIP').innerText;
             navigator.clipboard.writeText(ip).then(() => {
@@ -126,6 +139,36 @@
                 setTimeout(() => { hint.innerText = "Click to copy IP"; hint.style.color = "#666"; }, 2000);
             });
         }
+
+        // Fetch Live Server Status
+        function updateStatus() {
+            // Using mcstatus.io API for Java/Bedrock (works for both)
+            fetch('https://api.mcstatus.io/v2/status/java/play.deluxsmp.fun:20006')
+                .then(response => response.json())
+                .then(data => {
+                    const dot = document.getElementById('statusDot');
+                    const text = document.getElementById('statusText');
+                    const players = document.getElementById('playerCount');
+
+                    if (data.online) {
+                        dot.classList.add('online');
+                        text.innerText = "Server Online";
+                        players.innerText = `| ${data.players.online} Players`;
+                    } else {
+                        dot.classList.remove('online');
+                        text.innerText = "Server Offline";
+                        players.innerText = "";
+                    }
+                })
+                .catch(err => {
+                    document.getElementById('statusText').innerText = "Status Unavailable";
+                });
+        }
+
+        // Update status on load
+        updateStatus();
+        // Refresh every 30 seconds
+        setInterval(updateStatus, 30000);
     </script>
 </body>
 </html>
