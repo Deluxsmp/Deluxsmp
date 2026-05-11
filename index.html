@@ -15,7 +15,7 @@
 
         .bg-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), 
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), 
                         url('https://images.unsplash.com/photo-1627398242454-45a1465c2479?q=80&w=1920&auto=format&fit=crop'); 
             background-size: cover; background-position: center;
         }
@@ -23,66 +23,70 @@
         /* নেভিগেশন বার */
         nav {
             position: fixed; top: 0; width: 100%; height: 60px;
-            background: rgba(0,0,0,0.8); display: flex; align-items: center;
+            background: rgba(0,0,0,0.9); display: flex; align-items: center;
             justify-content: space-between; padding: 0 20px; z-index: 1000;
-            box-sizing: border-box; border-bottom: 1px solid rgba(255, 77, 77, 0.2);
+            box-sizing: border-box; border-bottom: 1px solid rgba(255, 77, 77, 0.3);
         }
 
         .menu-icon, .dc-icon { font-size: 24px; color: #ff4d4d; cursor: pointer; transition: 0.3s; }
-        .menu-icon:hover, .dc-icon:hover { transform: scale(1.1); }
 
         /* সাইড মেনু (Sidebar) */
         .sidebar {
             position: fixed; top: 0; left: -280px; width: 280px; height: 100%;
-            background: #111; transition: 0.4s; z-index: 2000; padding-top: 60px;
+            background: #0d0d0d; transition: 0.4s; z-index: 2000; padding-top: 60px;
             box-shadow: 5px 0 15px rgba(0,0,0,0.5);
         }
         .sidebar.active { left: 0; }
         .sidebar a {
             display: block; padding: 15px 25px; color: white; text-decoration: none;
-            font-size: 1.2rem; border-bottom: 1px solid #222; transition: 0.3s;
+            font-size: 1.2rem; border-bottom: 1px solid #1a1a1a; transition: 0.3s;
         }
         .sidebar a:hover { background: #ff4d4d; padding-left: 35px; }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 25px; color: #ff4d4d; cursor: pointer; }
 
         /* সেকশন কন্ট্রোল */
-        .page-section { display: none; padding: 100px 20px 40px; min-height: 80vh; animation: fadeIn 0.5s ease; }
+        .page-section { display: none; padding: 100px 20px 40px; min-height: 80vh; animation: fadeIn 0.5s ease; text-align: center; }
         .active-section { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* হোম পেজ স্টাইল */
         .glow-text {
-            font-size: clamp(3rem, 10vw, 5rem); color: #ff4d4d; text-transform: uppercase;
-            font-weight: 700; letter-spacing: 5px; margin-top: 15vh;
-            text-shadow: 0 0 20px rgba(255, 77, 77, 0.8), 0 0 40px rgba(255, 77, 77, 0.4);
+            font-size: clamp(3rem, 10vw, 5.5rem); color: #ff4d4d; text-transform: uppercase;
+            font-weight: 700; letter-spacing: 5px; margin: 15vh 0 10px 0;
+            text-shadow: 0 0 20px rgba(255, 77, 77, 0.8);
             animation: pulse 2s infinite alternate;
         }
-        @keyframes pulse { from { opacity: 0.8; } to { opacity: 1; transform: scale(1.02); } }
-
-        /* স্ট্যাটাস কার্ড */
-        .status-container {
-            max-width: 500px; margin: 40px auto; background: rgba(255, 255, 255, 0.05);
-            padding: 30px; border-radius: 15px; border: 1px solid #ff4d4d;
+        
+        .step-container {
+            margin-top: 20px; display: inline-block; text-align: left;
         }
-        .stat-row { display: flex; justify-content: space-between; margin: 15px 0; font-size: 1.2rem; }
-        .stat-value { color: #ff4d4d; font-weight: bold; }
-        .online-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #555; margin-right: 10px; }
-        .online { background: #00ffaa; box-shadow: 0 0 10px #00ffaa; }
+        .step-item {
+            font-size: 1.2rem; color: #eee; margin: 10px 0; display: flex; align-items: center;
+        }
+        .step-item i { color: #ff4d4d; margin-right: 15px; font-size: 1.1rem; }
 
-        /* রুলস স্টাইল */
-        .rules-box { text-align: left; max-width: 600px; margin: 0 auto; line-height: 2; }
-        .rules-box li { margin-bottom: 10px; border-left: 3px solid #ff4d4d; padding-left: 15px; list-style: none; }
+        /* রুলস কার্ড ডিজাইন */
+        .rules-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px; max-width: 1000px; margin: 30px auto;
+        }
+        .rule-card {
+            background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 12px;
+            border-left: 4px solid #ff4d4d; text-align: left;
+        }
+        .rule-card h4 { margin: 0 0 10px 0; color: #ff4d4d; }
 
-        /* আইপি বক্স (নিচে) */
+        /* আইপি বক্স (নিচে মাঝখানে) */
         .footer-ip {
-            padding: 40px 20px; background: rgba(0,0,0,0.8); border-top: 1px solid #222;
-            margin-top: 50px;
+            padding: 60px 20px; text-align: center; margin-top: 50px;
         }
         .ip-copy {
-            background: #111; padding: 15px 30px; border-radius: 50px;
-            display: inline-block; border: 1px dashed #ff4d4d; cursor: pointer; transition: 0.3s;
+            background: #111; padding: 15px 40px; border-radius: 15px;
+            display: inline-block; border: 2px dashed #ff4d4d; cursor: pointer; transition: 0.3s;
         }
-        .ip-copy:hover { background: #ff4d4d; border-style: solid; }
+        .ip-copy:hover { background: #ff4d4d; transform: translateY(-5px); border-style: solid; }
+
+        @keyframes pulse { from { opacity: 0.8; } to { opacity: 1; transform: scale(1.02); } }
     </style>
 </head>
 <body>
@@ -98,108 +102,102 @@
     <div class="sidebar" id="sidebar">
         <div class="close-btn" onclick="toggleSidebar()">&times;</div>
         <a href="#" onclick="showSection('home')">Home</a>
-        <a href="#" onclick="showSection('about')">About</a>
+        <a href="#" onclick="showSection('about')">Rules & Info</a>
         <a href="store.html">Store</a>
         <a href="#" onclick="showSection('status')">Status</a>
     </div>
 
     <section id="home" class="page-section active-section">
         <h1 class="glow-text">DELUX SMP</h1>
-        <p style="font-size: 1.2rem; color: #ccc;">The Ultimate Survival Experience</p>
+        <div class="step-container">
+            <div class="step-item"><i class="fas fa-star"></i> বাংলাদেশের ১ নম্বর সারভাইভাল অভিজ্ঞতা</div>
+            <div class="step-item"><i class="fas fa-shield-alt"></i> সম্পূর্ণ সুরক্ষিত এবং ল্যাগ-ফ্রি সার্ভার</div>
+            <div class="step-item"><i class="fas fa-users"></i> বন্ধুত্বপূর্ণ কমিউনিটি এবং ২৪/৭ সাপোর্ট</div>
+            <div class="step-item"><i class="fas fa-pigeon"></i> শান্তির সাথে কোনো PvP ছাড়াই গেমিং করুন</div>
+        </div>
     </section>
 
     <section id="about" class="page-section">
-        <h2 style="color: #ff4d4d;">ABOUT SERVER</h2>
-        <div class="rules-box">
-            <p>Delux SMP একটি প্রিমিয়াম সারভাইভাল সার্ভার যেখানে আপনি বন্ধুদের সাথে অ্যাডভেঞ্চার করতে পারেন।</p>
-            <h3>সার্ভার নিয়মাবলী:</h3>
-            <ul>
-                <li>কারো প্রপার্টি চুরি বা গ্রিফ করা যাবে না।</li>
-                <li>হ্যাক বা এক্স-রে ব্যবহার করলে সরাসরি ব্যান।</li>
-                <li>সব প্লেয়ারের সাথে সম্মানজনক আচরণ করতে হবে।</li>
-                <li>স্প্যাম বা অ্যাডভার্টাইজিং নিষিদ্ধ।</li>
-            </ul>
+        <h2 style="color: #ff4d4d;">SERVER RULES & INFO</h2>
+        <div class="rules-grid">
+            <div class="rule-card">
+                <h4>🚫 No PvP Allowed</h4>
+                <p>আমাদের সার্ভারে কোনো PvP নেই। এখানে শান্তিতে সারভাইভ করুন।</p>
+            </div>
+            <div class="rule-card">
+                <h4>🛡️ No Griefing</h4>
+                <p>অন্যের তৈরি ঘর বা জিনিস নষ্ট করা যাবে না। কারো প্রপার্টি চুরি করলে সরাসরি ব্যান।</p>
+            </div>
+            <div class="rule-card">
+                <h4>🛑 No Hacking</h4>
+                <p>এক্স-রে বা কোনো ধরণের হ্যাক ব্যবহার করলে কোনো সতর্কতা ছাড়াই ব্যান করা হবে।</p>
+            </div>
+            <div class="rule-card">
+                <h4>💬 Respect Everyone</h4>
+                <p>সব প্লেয়ারের সাথে ভালো ব্যবহার করতে হবে। চ্যাটে কোনো গালিগালাজ চলবে না।</p>
+            </div>
+            <div class="rule-card">
+                <h4>⚠️ No Spamming</h4>
+                <p>চ্যাটে স্প্যাম করা বা অন্য সার্ভারের অ্যাডভার্টাইজিং করা নিষিদ্ধ।</p>
+            </div>
+            <div class="rule-card">
+                <h4>🤝 Active Staff</h4>
+                <p>যেকোনো সমস্যায় আমাদের স্টাফদের সাথে ডিসকর্ড বা গেমে যোগাযোগ করুন।</p>
+            </div>
         </div>
     </section>
 
     <section id="status" class="page-section">
         <h2 style="color: #ff4d4d;">SERVER STATUS</h2>
-        <div class="status-container">
-            <div class="stat-row">
-                <span>সার্ভার স্ট্যাটাস:</span>
-                <span><span id="statDot" class="online-dot"></span><span id="statText" class="stat-value">Checking...</span></span>
-            </div>
-            <div class="stat-row">
-                <span>অনলাইন প্লেয়ার:</span>
-                <span id="onlineCount" class="stat-value">0</span>
-            </div>
-            <div class="stat-row">
-                <span>সার্ভার পিং:</span>
-                <span id="pingValue" class="stat-value">Calculating...</span>
-            </div>
+        <div style="background: rgba(255,255,255,0.05); max-width: 400px; margin: 0 auto; padding: 40px; border-radius: 20px; border: 1px solid #ff4d4d;">
+            <div id="statText" style="font-size: 1.5rem; font-weight: bold; color: #ff4d4d;">Checking...</div>
+            <div style="font-size: 2.5rem; margin: 20px 0; font-weight: bold;" id="onlineCount">0 / 0</div>
+            <p id="pingDisplay">Ping: Calculating...</p>
         </div>
     </section>
 
     <div class="footer-ip">
-        <h3>Join Us Today!</h3>
+        <h3 style="margin-bottom: 20px;">Join Delux SMP Now!</h3>
         <div class="ip-copy" onclick="copyIP()">
-            <span id="ipText" style="font-weight: bold; font-size: 1.2rem;">play.deluxsmp.fun</span>
-            <div style="font-size: 0.8rem; opacity: 0.7;">Click to Copy (Port: 20006)</div>
+            <span id="ipText" style="font-weight: bold; font-size: 1.5rem; display: block;">play.deluxsmp.fun</span>
+            <span style="font-size: 0.9rem; opacity: 0.8;">Port: 20006 (Click to Copy)</span>
         </div>
-        <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.4;">&copy; 2026 Delux SMP</p>
+        <p style="margin-top: 40px; opacity: 0.4; font-size: 0.8rem;">&copy; 2026 Delux SMP | Proudly Hosted in BD</p>
     </div>
 
     <script>
-        // সাইডবার কন্ট্রোল
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
-        }
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
 
-        // সেকশন পরিবর্তন
         function showSection(sectionId) {
-            document.querySelectorAll('.page-section').forEach(section => {
-                section.classList.remove('active-section');
-            });
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active-section'));
             document.getElementById(sectionId).classList.add('active-section');
-            toggleSidebar(); // মেনু বন্ধ হবে ক্লিক করলে
+            toggleSidebar();
         }
 
-        // আইপি কপি
         function copyIP() {
             navigator.clipboard.writeText("play.deluxsmp.fun");
             alert("Server IP Copied!");
         }
 
-        // ডাইনামিক স্ট্যাটাস চেক
         function updateStatus() {
             fetch('https://api.mcstatus.io/v2/status/java/play.deluxsmp.fun:20006')
                 .then(r => r.json())
                 .then(data => {
-                    const dot = document.getElementById('statDot');
                     const text = document.getElementById('statText');
                     const players = document.getElementById('onlineCount');
-                    const ping = document.getElementById('pingValue');
-
                     if(data.online) {
-                        dot.classList.add('online');
-                        text.innerText = "ONLINE";
+                        text.innerText = "SERVER ONLINE";
                         text.style.color = "#00ffaa";
                         players.innerText = data.players.online + " / " + data.players.max;
-                        ping.innerText = "40ms - 80ms"; // এভারেজ পিং
+                        document.getElementById('pingDisplay').innerText = "Ping: Stable";
                     } else {
-                        dot.classList.remove('online');
-                        text.innerText = "OFFLINE";
+                        text.innerText = "SERVER OFFLINE";
                         text.style.color = "#ff4d4d";
                     }
-                })
-                .catch(() => {
-                    document.getElementById('statText').innerText = "ERROR";
-                });
+                }).catch(() => { document.getElementById('statText').innerText = "ERROR"; });
         }
-
-        // পেজ লোড হলে স্ট্যাটাস চেক
         updateStatus();
-        setInterval(updateStatus, 30000); // প্রতি ৩০ সেকেন্ডে আপডেট হবে
+        setInterval(updateStatus, 30000);
     </script>
 </body>
 </html>
