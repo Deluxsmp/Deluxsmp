@@ -14,8 +14,9 @@
 
         .bg-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), 
-                        url('https://images.unsplash.com/photo-1627398242454-45a1465c2479?q=80&w=1920&auto=format&fit=crop'); 
+            /* আপনার দেওয়া মাইনক্রাফট ক্যাসেল ব্যাকগ্রাউন্ড এখানে সেট করা হয়েছে */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), 
+                        url('https://i.imgur.com/vHqQ8rP.png'); 
             background-size: cover; background-position: center;
         }
 
@@ -47,8 +48,8 @@
 
         /* হোম পেজ - বাম দিকে এলাইন করা */
         #home {
-            text-align: left; /* পুরো সেকশন বাম দিকে */
-            padding-left: 30px; /* ওয়াল থেকে সামান্য গ্যাপ */
+            text-align: left; 
+            padding-left: 30px; 
         }
 
         .glow-text {
@@ -63,9 +64,11 @@
         }
         .step-item {
             font-size: 1.1rem; color: #eee; display: flex; align-items: center;
-            background: rgba(255, 77, 77, 0.05); padding: 10px 15px;
+            background: rgba(255, 77, 77, 0.2); /* ব্যাকগ্রাউন্ডের সাথে মানানসই করার জন্য অপাসিটি বাড়ানো হয়েছে */
+            padding: 10px 15px;
             border-left: 4px solid #ff4d4d; width: fit-content;
             border-radius: 0 8px 8px 0;
+            backdrop-filter: blur(5px); /* হালকা ব্লার ইফেক্ট */
         }
         .step-item i { color: #ff4d4d; margin-right: 12px; width: 20px; text-align: center; }
 
@@ -75,15 +78,17 @@
             gap: 20px; max-width: 1000px; margin: 30px auto;
         }
         .rule-card {
-            background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 12px;
+            background: rgba(0, 0, 0, 0.6); padding: 20px; border-radius: 12px;
             border-left: 4px solid #ff4d4d; text-align: left;
+            backdrop-filter: blur(10px);
         }
 
         /* আইপি বক্স - মাঝখানে */
         .footer-ip { padding: 60px 20px; text-align: center; }
         .ip-copy {
-            background: #111; padding: 15px 40px; border-radius: 15px;
+            background: rgba(0, 0, 0, 0.8); padding: 15px 40px; border-radius: 15px;
             display: inline-block; border: 2px dashed #ff4d4d; cursor: pointer;
+            backdrop-filter: blur(10px);
         }
     </style>
 </head>
@@ -127,7 +132,7 @@
 
     <section id="status" class="page-section" style="text-align: center;">
         <h2 style="color: #ff4d4d;">SERVER STATUS</h2>
-        <div style="background: rgba(255,255,255,0.05); max-width: 400px; margin: 0 auto; padding: 40px; border-radius: 20px; border: 1px solid #ff4d4d;">
+        <div style="background: rgba(0,0,0,0.6); max-width: 400px; margin: 0 auto; padding: 40px; border-radius: 20px; border: 1px solid #ff4d4d; backdrop-filter: blur(10px);">
             <div id="statText" style="font-size: 1.5rem; font-weight: bold;">Checking...</div>
             <div style="font-size: 2.5rem; margin: 20px 0; font-weight: bold;" id="onlineCount">0 / 0</div>
         </div>
