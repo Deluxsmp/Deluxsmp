@@ -35,11 +35,27 @@
         .btn { 
             display: inline-block; padding: 12px 28px; margin: 8px; 
             background: rgba(255, 77, 77, 0.1); color: white; text-decoration: none; 
-            border-radius: 5px; font-weight: 600; border: 1px solid #ff4d4d; transition: 0.3s; 
+            border-radius: 5px; font-weight: 600; border: 1px solid #ff4d4d; transition: 0.3s; cursor: pointer;
         }
         .btn:hover { background: #ff4d4d; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255, 77, 77, 0.3); }
 
-        /* Status Card Styles */
+        /* Login Modal UI */
+        .auth-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center;
+            backdrop-filter: blur(8px);
+        }
+        .auth-box {
+            background: #111; padding: 30px; border-radius: 15px; border: 2px solid #ff4d4d;
+            width: 90%; max-width: 350px; text-align: center; color: white; position: relative;
+        }
+        .google-btn {
+            width: 100%; padding: 12px; margin-top: 20px; cursor: pointer; border-radius: 5px;
+            font-weight: bold; border: none; display: flex; align-items: center; justify-content: center; 
+            gap: 10px; background: white; color: black; transition: 0.3s;
+        }
+        .close-auth { position: absolute; top: 10px; right: 15px; cursor: pointer; font-size: 24px; color: #ff4d4d; }
+
         .status-card {
             max-width: 400px; margin: 20px auto; background: rgba(255, 255, 255, 0.05);
             border-radius: 10px; padding: 15px; border: 1px solid rgba(255, 77, 77, 0.3);
@@ -65,7 +81,6 @@
         .rules-list li { padding: 10px 0; color: #ddd; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .rules-list li::before { content: '•'; color: #ff4d4d; margin-right: 10px; }
 
-        /* IP Section Move to Bottom */
         .info-section { padding: 60px 20px 100px; animation: fadeInUp 1.3s ease-out; }
         .ip-box { 
             background: rgba(0, 0, 0, 0.5); padding: 20px 35px; border-radius: 10px; 
@@ -95,7 +110,7 @@
             <div class="btn-group">
                 <a href="https://discord.gg/fHjZKPGPxB" target="_blank" class="btn">DISCORD</a>
                 <a href="store.html" class="btn">WEB STORE</a>
-                <a href="#" class="btn">VOTE</a>
+                <a href="javascript:void(0)" id="mainLoginBtn" class="btn">LOGIN</a>
             </div>
         </header>
 
@@ -110,7 +125,6 @@
                     <li>অন্যের কোনো Build বা ঘর ভাঙা যাবে না।</li>
                     <li>সবার সাথে ভালো ব্যবহার করতে হবে।</li>
                     <li>Staff বা মডারেটরদের কথা মেনে চলতে হবে।</li>
-                    <li>Spawn এরিয়াতে সুন্দর কিছু বিল্ড করতে হবে।</li>
                     <li>Hack ব্যবহার করলে সরাসরি IP BAN।</li>
                 </ul>
             </div>
@@ -128,8 +142,61 @@
         <footer>&copy; 2026 Delux SMP. All rights reserved.</footer>
     </div>
 
+    <div id="authModal" class="auth-overlay">
+        <div class="auth-box">
+            <span class="close-auth" onclick="toggleAuth()">×</span>
+            <h2 style="color: #ff4d4d;">DELUX SMP</h2>
+            <p>আপনার অ্যাকাউন্ট দিয়ে লগইন করুন</p>
+            <button class="google-btn" onclick="loginWithGoogle()">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
+                Login with Google
+            </button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyB74QyFPuj7W7-7uncbVPdZ0vvHIZxGQDc",
+          authDomain: "delux-3ad45.firebaseapp.com",
+          projectId: "delux-3ad45",
+          storageBucket: "delux-3ad45.firebasestorage.app",
+          messagingSenderId: "435269607703",
+          appId: "1:435269607703:web:d8c58d5a915f5ae8edd752",
+          measurementId: "G-MOKR735DR0"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        window.toggleAuth = function() {
+            const modal = document.getElementById('authModal');
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        window.loginWithGoogle = function() {
+            signInWithPopup(auth, provider).then((result) => {
+                alert("স্বাগতম, " + result.user.displayName);
+                toggleAuth();
+            }).catch((err) => alert("Error: " + err.message));
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            const loginBtn = document.getElementById('mainLoginBtn');
+            if (user) {
+                loginBtn.innerText = "LOGOUT (" + user.displayName.split(' ')[0].toUpperCase() + ")";
+                loginBtn.onclick = () => { if(confirm("Log out?")) signOut(auth); };
+            } else {
+                loginBtn.innerText = "LOGIN";
+                loginBtn.onclick = toggleAuth;
+            }
+        });
+    </script>
+
     <script>
-        // Copy IP Function
         function copyIP() {
             const ip = document.getElementById('serverIP').innerText;
             navigator.clipboard.writeText(ip).then(() => {
@@ -140,16 +207,13 @@
             });
         }
 
-        // Fetch Live Server Status
         function updateStatus() {
-            // Using mcstatus.io API for Java/Bedrock (works for both)
             fetch('https://api.mcstatus.io/v2/status/java/play.deluxsmp.fun:20006')
                 .then(response => response.json())
                 .then(data => {
                     const dot = document.getElementById('statusDot');
                     const text = document.getElementById('statusText');
                     const players = document.getElementById('playerCount');
-
                     if (data.online) {
                         dot.classList.add('online');
                         text.innerText = "Server Online";
@@ -160,14 +224,9 @@
                         players.innerText = "";
                     }
                 })
-                .catch(err => {
-                    document.getElementById('statusText').innerText = "Status Unavailable";
-                });
+                .catch(err => { document.getElementById('statusText').innerText = "Status Unavailable"; });
         }
-
-        // Update status on load
         updateStatus();
-        // Refresh every 30 seconds
         setInterval(updateStatus, 30000);
     </script>
 </body>
