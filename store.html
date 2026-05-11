@@ -66,7 +66,6 @@
 
         .buy-now:hover { letter-spacing: 2px; box-shadow: 0 0 20px #ff4d4d; }
 
-        /* কার্ট আইকন এবং পপ-আপ */
         .cart-icon { position: fixed; top: 20px; right: 20px; background: #ff4d4d; padding: 15px; border-radius: 50%; cursor: pointer; z-index: 1000; box-shadow: 0 0 15px rgba(255,77,77,0.5); }
         .cart-count { position: absolute; top: -5px; right: -5px; background: white; color: red; border-radius: 50%; padding: 2px 7px; font-weight: bold; font-size: 12px; }
         
@@ -77,6 +76,7 @@
         
         input { width: 90%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #333; background: #000; color: white; outline: none; }
         input:focus { border-color: #ff4d4d; }
+        input:read-only { background: #1a1a1a; color: #00ffaa; cursor: not-allowed; }
 
         .cart-item { display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding: 10px 0; font-weight: bold; }
         
@@ -98,7 +98,7 @@
 
     <header>
         <h1>DELUX STORE</h1>
-        <p>সার্ভারকে উন্নত করতে আপনার পছন্দের র‍্যাঙ্কটি বেছে নিন</p>
+        <p id="welcome-text">সার্ভারকে উন্নত করতে আপনার পছন্দের র‍্যাঙ্কটি বেছে নিন</p>
     </header>
 
     <h2>Ranks</h2>
@@ -159,7 +159,7 @@
             </div>
 
             <div id="checkout-form">
-                <input type="text" id="username" placeholder="গেম ইউজারনেম (Username)" required>
+                <input type="text" id="username" placeholder="Checking Login..." readonly>
                 <input type="text" id="phone" placeholder="বিকাশ নাম্বার (যেটা দিয়ে টাকা পাঠিয়েছেন)" required>
                 <input type="text" id="trxid" placeholder="ট্রানজেকশন ID (TrxID)" required>
                 <button class="buy-now" style="margin-top: 15px;" onclick="sendToDiscord()">অর্ডার কনফার্ম করুন</button>
@@ -173,9 +173,40 @@
         &copy; 2026 Delux SMP. All rights reserved.
     </footer>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyB74QyFPuj7W7-7uncbVPdZ0vvHIZxGQDc",
+          authDomain: "delux-3ad45.firebaseapp.com",
+          projectId: "delux-3ad45",
+          storageBucket: "delux-3ad45.firebasestorage.app",
+          messagingSenderId: "435269607703",
+          appId: "1:435269607703:web:d8c58d5a915f5ae8edd752",
+          measurementId: "G-MOKR735DR0"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // লগইন চেক এবং নাম অটো-ফিল
+        onAuthStateChanged(auth, (user) => {
+            const userField = document.getElementById('username');
+            const welcome = document.getElementById('welcome-text');
+            if (user) {
+                userField.value = user.displayName;
+                welcome.innerText = "স্বাগতম, " + user.displayName + "! আপনার র‍্যাঙ্কটি বেছে নিন।";
+            } else {
+                userField.placeholder = "আগে হোম পেজে লগইন করুন!";
+                alert("দয়া করে আগে হোম পেজ থেকে লগইন করুন।");
+                window.location.href = "index.html"; // লগইন না থাকলে হোমে পাঠিয়ে দিবে
+            }
+        });
+    </script>
+
     <script>
         let cart = [];
-        // আপনার দেওয়া ডিসকর্ড ওয়েব-হুক লিঙ্কটি এখানে যুক্ত করা হয়েছে
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1503346520093753416/Lx_c_a06yPNRaRYv8oG5hxhrjQCYQ5YU033BQnJ9Ip3RbJzjfXySmOQ1hOGozM9EO3JT";
 
         function addToCart(name, price) {
@@ -212,8 +243,9 @@
             const trx = document.getElementById('trxid').value;
             const total = document.getElementById('total-price').innerText;
 
+            if(!user) return alert("লগইন করা নেই!");
             if(cart.length === 0) return alert("আপনার কার্ট খালি!");
-            if(!user || !phone || !trx) return alert("দয়া করে সব তথ্য সঠিকভাবে দিন!");
+            if(!phone || !trx) return alert("বিকাশ নাম্বার এবং TrxID দিন!");
 
             const items = cart.map(i => i.name).join(", ");
             
@@ -223,7 +255,7 @@
                     title: "অর্ডার ডিটেইলস",
                     color: 16723277,
                     fields: [
-                        { name: "গেম ইউজারনেম", value: user, inline: true },
+                        { name: "প্লেয়ার নাম", value: user, inline: true },
                         { name: "বিকাশ নাম্বার", value: phone, inline: true },
                         { name: "ট্রানজেকশন ID", value: trx, inline: false },
                         { name: "আইটেমসমূহ", value: items },
@@ -239,14 +271,13 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(message)
             }).then(() => {
-                alert("ধন্যবাদ! আপনার অর্ডারটি পাঠানো হয়েছে। অ্যাডমিন চেক করে র‍্যাঙ্ক দিয়ে দিবে।");
+                alert("অর্ডার সফল! এডমিন চেক করে র‍্যাঙ্ক দিয়ে দিবে।");
                 cart = [];
                 updateCart();
                 toggleCart();
-                document.getElementById('username').value = "";
                 document.getElementById('phone').value = "";
                 document.getElementById('trxid').value = "";
-            }).catch(() => alert("দুঃখিত! তথ্য পাঠাতে সমস্যা হয়েছে।"));
+            }).catch(() => alert("সমস্যা হয়েছে, আবার চেষ্টা করুন।"));
         }
     </script>
 </body>
