@@ -39,23 +39,6 @@
         }
         .btn:hover { background: #ff4d4d; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255, 77, 77, 0.3); }
 
-        /* Login Modal UI */
-        .auth-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center;
-            backdrop-filter: blur(8px);
-        }
-        .auth-box {
-            background: #111; padding: 30px; border-radius: 15px; border: 2px solid #ff4d4d;
-            width: 90%; max-width: 350px; text-align: center; color: white; position: relative;
-        }
-        .google-btn {
-            width: 100%; padding: 12px; margin-top: 20px; cursor: pointer; border-radius: 5px;
-            font-weight: bold; border: none; display: flex; align-items: center; justify-content: center; 
-            gap: 10px; background: white; color: black; transition: 0.3s;
-        }
-        .close-auth { position: absolute; top: 10px; right: 15px; cursor: pointer; font-size: 24px; color: #ff4d4d; }
-
         .status-card {
             max-width: 400px; margin: 20px auto; background: rgba(255, 255, 255, 0.05);
             border-radius: 10px; padding: 15px; border: 1px solid rgba(255, 77, 77, 0.3);
@@ -110,7 +93,6 @@
             <div class="btn-group">
                 <a href="https://discord.gg/fHjZKPGPxB" target="_blank" class="btn">DISCORD</a>
                 <a href="store.html" class="btn">WEB STORE</a>
-                <a href="javascript:void(0)" id="mainLoginBtn" class="btn">LOGIN</a>
             </div>
         </header>
 
@@ -142,80 +124,8 @@
         <footer>&copy; 2026 Delux SMP. All rights reserved.</footer>
     </div>
 
-    <div id="authModal" class="auth-overlay">
-        <div class="auth-box">
-            <span class="close-auth" onclick="toggleAuth()">×</span>
-            <h2 style="color: #ff4d4d;">DELUX SMP</h2>
-            <p>আপনার অ্যাকাউন্ট দিয়ে লগইন করুন</p>
-            <button class="google-btn" onclick="loginWithGoogle()">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
-                Login with Google
-            </button>
-        </div>
-    </div>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-        // ফায়ারবেস কনফিগ (একদম সঠিকটি বসানো হয়েছে)
-        const firebaseConfig = {
-          apiKey: "AIzaSyB74QyFPuj7W7-7uncbVPdZ0vvHIZxGQDc",
-          authDomain: "delux-3ad45.firebaseapp.com",
-          projectId: "delux-3ad45",
-          storageBucket: "delux-3ad45.firebasestorage.app",
-          messagingSenderId: "435269607703",
-          appId: "1:435269607703:web:d8c58d5a915f5ae8edd752",
-          measurementId: "G-MOKR735DR0"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const provider = new GoogleAuthProvider();
-
-        window.toggleAuth = function() {
-            const modal = document.getElementById('authModal');
-            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
-        }
-
-        window.loginWithGoogle = async function() {
-            try {
-                await signInWithRedirect(auth, provider);
-            } catch (err) {
-                alert("Error: " + err.message);
-            }
-        }
-
-        getRedirectResult(auth).then(async (result) => {
-            if (result && result.user) {
-                const user = result.user;
-                await setDoc(doc(db, "users", user.uid), {
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    email: user.email,
-                    photoURL: user.photoURL,
-                    lastLogin: new Date()
-                }, { merge: true });
-            }
-        }).catch((err) => {
-            console.error("Redirect Error:", err);
-        });
-
-        onAuthStateChanged(auth, (user) => {
-            const loginBtn = document.getElementById('mainLoginBtn');
-            if (user) {
-                loginBtn.innerText = "LOGOUT (" + user.displayName.split(' ')[0].toUpperCase() + ")";
-                loginBtn.onclick = () => { if(confirm("Log out?")) signOut(auth); };
-            } else {
-                loginBtn.innerText = "LOGIN";
-                loginBtn.onclick = toggleAuth;
-            }
-        });
-    </script>
-
     <script>
+        // আইপি কপি ফাংশন
         function copyIP() {
             const ip = document.getElementById('serverIP').innerText;
             navigator.clipboard.writeText(ip).then(() => {
@@ -226,6 +136,7 @@
             });
         }
 
+        // সার্ভার স্ট্যাটাস আপডেট
         function updateStatus() {
             fetch('https://api.mcstatus.io/v2/status/java/play.deluxsmp.fun:20006')
                 .then(response => response.json())
