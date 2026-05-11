@@ -15,7 +15,6 @@
         /* আপডেট করা প্রিমিয়াম ব্যাকগ্রাউন্ড */
         .bg-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-            /* এখানে একটি হাই-কোয়ালিটি টেক্সট-হীন ইমেজ ব্যবহার করা হয়েছে */
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), 
                         url('https://images.wallpapersden.com/image/download/minecraft-night-minimalist-hd_bG1lZ2uUmZqaraWkpJRmbmdlrWZlbWU.jpg'); 
             background-size: cover; 
@@ -45,14 +44,43 @@
             background: rgba(13, 13, 13, 0.95); backdrop-filter: blur(10px);
             transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2000; padding-top: 60px;
             box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column;
         }
         .sidebar.active { left: 0; }
         .sidebar a {
             display: block; padding: 15px 25px; color: white; text-decoration: none;
-            font-size: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
+            font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
         }
         .sidebar a:hover { background: #ff4d4d; padding-left: 35px; }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 25px; color: #ff4d4d; cursor: pointer; }
+
+        /* --- Staff Section Styles --- */
+        .staff-section {
+            padding: 20px 25px;
+            margin-top: auto; /* মেনুর নিচে পাঠাতে সাহায্য করবে */
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 77, 77, 0.2);
+        }
+        .staff-title {
+            font-size: 0.7rem; color: #888; letter-spacing: 2px;
+            margin-bottom: 15px; font-weight: bold; text-transform: uppercase;
+        }
+        .staff-item {
+            display: flex; align-items: center; margin-bottom: 12px;
+        }
+        .mc-head {
+            width: 32px; height: 32px; border-radius: 4px;
+            image-rendering: pixelated; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .staff-info { display: flex; flex-direction: column; margin-left: 12px; }
+        .staff-role { font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
+        .staff-name { font-size: 13px; color: #eee; font-weight: 600; }
+        
+        /* Role Colors */
+        .owner-color { color: #ff4d4d; }
+        .co-owner-color { color: #ffcc00; }
+        .dev-color { color: #55ff55; }
+        /* ---------------------------- */
 
         .page-section { display: none; padding: 120px 20px 40px; min-height: 80vh; animation: fadeIn 0.6s ease-out; }
         .active-section { display: block; }
@@ -120,10 +148,40 @@
 
     <div class="sidebar" id="sidebar">
         <div class="close-btn" onclick="toggleSidebar()">&times;</div>
-        <a href="#" onclick="showSection('home')"><i class="fas fa-home"></i> Home</a>
-        <a href="#" onclick="showSection('about')"><i class="fas fa-book"></i> Rules & Info</a>
-        <a href="store.html"><i class="fas fa-shopping-cart"></i> Store</a>
-        <a href="#" onclick="showSection('status')"><i class="fas fa-signal"></i> Status</a>
+        <div class="nav-links">
+            <a href="#" onclick="showSection('home')"><i class="fas fa-home"></i> Home</a>
+            <a href="#" onclick="showSection('about')"><i class="fas fa-book"></i> Rules & Info</a>
+            <a href="store.html"><i class="fas fa-shopping-cart"></i> Store</a>
+            <a href="#" onclick="showSection('status')"><i class="fas fa-signal"></i> Status</a>
+        </div>
+
+        <div class="staff-section">
+            <p class="staff-title">MANAGEMENT</p>
+            
+            <div class="staff-item">
+                <img src="https://mc-heads.net/avatar/RX_SavageX/32" class="mc-head" alt="Owner">
+                <div class="staff-info">
+                    <span class="staff-role owner-color">Owner</span>
+                    <span class="staff-name">RX_SavageX</span>
+                </div>
+            </div>
+
+            <div class="staff-item">
+                <img src="https://mc-heads.net/avatar/katarnak_Tamim/32" class="mc-head" alt="Co-Owner">
+                <div class="staff-info">
+                    <span class="staff-role co-owner-color">Co-Owner</span>
+                    <span class="staff-name">katarnak_Tamim</span>
+                </div>
+            </div>
+
+            <div class="staff-item">
+                <img src="https://mc-heads.net/avatar/Itz_Dhrubo/32" class="mc-head" alt="Developer">
+                <div class="staff-info">
+                    <span class="staff-role dev-color">Developer</span>
+                    <span class="staff-name">Itz_Dhrubo</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <section id="home" class="page-section active-section">
@@ -163,7 +221,6 @@
     </div>
 
     <script>
-        // Sidebar Logic
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
         function showSection(id) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active-section'));
@@ -176,7 +233,6 @@
             alert("IP Copied to Clipboard!");
         }
 
-        // Minecraft Animated Particles
         const canvas = document.getElementById('mc-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -212,7 +268,6 @@
         }
         init(); animate();
 
-        // Status Update
         function updateStatus() {
             fetch('https://api.mcstatus.io/v2/status/java/play.deluxsmp.fun:20006')
                 .then(r => r.json()).then(data => {
