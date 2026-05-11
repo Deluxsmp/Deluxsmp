@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* বেসিক স্টাইল */
         body { 
             margin: 0; font-family: 'Hind Siliguri', sans-serif; 
             background-color: #0a0a0a; color: white; overflow-x: hidden;
@@ -20,7 +19,6 @@
             background-size: cover; background-position: center;
         }
 
-        /* নেভিগেশন বার */
         nav {
             position: fixed; top: 0; width: 100%; height: 60px;
             background: rgba(0,0,0,0.9); display: flex; align-items: center;
@@ -30,7 +28,6 @@
 
         .menu-icon, .dc-icon { font-size: 24px; color: #ff4d4d; cursor: pointer; transition: 0.3s; }
 
-        /* সাইড মেনু (Sidebar) */
         .sidebar {
             position: fixed; top: 0; left: -280px; width: 280px; height: 100%;
             background: #0d0d0d; transition: 0.4s; z-index: 2000; padding-top: 60px;
@@ -44,28 +41,35 @@
         .sidebar a:hover { background: #ff4d4d; padding-left: 35px; }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 25px; color: #ff4d4d; cursor: pointer; }
 
-        /* সেকশন কন্ট্রোল */
-        .page-section { display: none; padding: 100px 20px 40px; min-height: 80vh; animation: fadeIn 0.5s ease; text-align: center; }
+        .page-section { display: none; padding: 100px 20px 40px; min-height: 80vh; animation: fadeIn 0.5s ease; }
         .active-section { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* হোম পেজ স্টাইল */
+        /* হোম পেজ - বাম দিকে এলাইন করা */
+        #home {
+            text-align: left; /* পুরো সেকশন বাম দিকে */
+            padding-left: 30px; /* ওয়াল থেকে সামান্য গ্যাপ */
+        }
+
         .glow-text {
-            font-size: clamp(3rem, 10vw, 5.5rem); color: #ff4d4d; text-transform: uppercase;
-            font-weight: 700; letter-spacing: 5px; margin: 15vh 0 10px 0;
+            font-size: clamp(2.5rem, 8vw, 5rem); color: #ff4d4d; text-transform: uppercase;
+            font-weight: 700; letter-spacing: 3px; margin: 10vh 0 20px 0;
             text-shadow: 0 0 20px rgba(255, 77, 77, 0.8);
-            animation: pulse 2s infinite alternate;
+            display: inline-block;
         }
         
         .step-container {
-            margin-top: 20px; display: inline-block; text-align: left;
+            display: flex; flex-direction: column; gap: 15px;
         }
         .step-item {
-            font-size: 1.2rem; color: #eee; margin: 10px 0; display: flex; align-items: center;
+            font-size: 1.1rem; color: #eee; display: flex; align-items: center;
+            background: rgba(255, 77, 77, 0.05); padding: 10px 15px;
+            border-left: 4px solid #ff4d4d; width: fit-content;
+            border-radius: 0 8px 8px 0;
         }
-        .step-item i { color: #ff4d4d; margin-right: 15px; font-size: 1.1rem; }
+        .step-item i { color: #ff4d4d; margin-right: 12px; width: 20px; text-align: center; }
 
-        /* রুলস কার্ড ডিজাইন */
+        /* রুলস কার্ড */
         .rules-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px; max-width: 1000px; margin: 30px auto;
@@ -74,19 +78,13 @@
             background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 12px;
             border-left: 4px solid #ff4d4d; text-align: left;
         }
-        .rule-card h4 { margin: 0 0 10px 0; color: #ff4d4d; }
 
-        /* আইপি বক্স (নিচে মাঝখানে) */
-        .footer-ip {
-            padding: 60px 20px; text-align: center; margin-top: 50px;
-        }
+        /* আইপি বক্স - মাঝখানে */
+        .footer-ip { padding: 60px 20px; text-align: center; }
         .ip-copy {
             background: #111; padding: 15px 40px; border-radius: 15px;
-            display: inline-block; border: 2px dashed #ff4d4d; cursor: pointer; transition: 0.3s;
+            display: inline-block; border: 2px dashed #ff4d4d; cursor: pointer;
         }
-        .ip-copy:hover { background: #ff4d4d; transform: translateY(-5px); border-style: solid; }
-
-        @keyframes pulse { from { opacity: 0.8; } to { opacity: 1; transform: scale(1.02); } }
     </style>
 </head>
 <body>
@@ -113,91 +111,58 @@
             <div class="step-item"><i class="fas fa-star"></i> বাংলাদেশের ১ নম্বর সারভাইভাল অভিজ্ঞতা</div>
             <div class="step-item"><i class="fas fa-shield-alt"></i> সম্পূর্ণ সুরক্ষিত এবং ল্যাগ-ফ্রি সার্ভার</div>
             <div class="step-item"><i class="fas fa-users"></i> বন্ধুত্বপূর্ণ কমিউনিটি এবং ২৪/৭ সাপোর্ট</div>
-            <div class="step-item"><i class="fas fa-pigeon"></i> শান্তির সাথে কোনো PvP ছাড়াই গেমিং করুন</div>
+            <div class="step-item"><i class="fas fa-dove"></i> শান্তির সাথে কোনো PvP ছাড়াই গেমিং করুন</div>
         </div>
     </section>
 
     <section id="about" class="page-section">
-        <h2 style="color: #ff4d4d;">SERVER RULES & INFO</h2>
+        <h2 style="color: #ff4d4d; text-align: center;">SERVER RULES & INFO</h2>
         <div class="rules-grid">
-            <div class="rule-card">
-                <h4>🚫 No PvP Allowed</h4>
-                <p>আমাদের সার্ভারে কোনো PvP নেই। এখানে শান্তিতে সারভাইভ করুন।</p>
-            </div>
-            <div class="rule-card">
-                <h4>🛡️ No Griefing</h4>
-                <p>অন্যের তৈরি ঘর বা জিনিস নষ্ট করা যাবে না। কারো প্রপার্টি চুরি করলে সরাসরি ব্যান।</p>
-            </div>
-            <div class="rule-card">
-                <h4>🛑 No Hacking</h4>
-                <p>এক্স-রে বা কোনো ধরণের হ্যাক ব্যবহার করলে কোনো সতর্কতা ছাড়াই ব্যান করা হবে।</p>
-            </div>
-            <div class="rule-card">
-                <h4>💬 Respect Everyone</h4>
-                <p>সব প্লেয়ারের সাথে ভালো ব্যবহার করতে হবে। চ্যাটে কোনো গালিগালাজ চলবে না।</p>
-            </div>
-            <div class="rule-card">
-                <h4>⚠️ No Spamming</h4>
-                <p>চ্যাটে স্প্যাম করা বা অন্য সার্ভারের অ্যাডভার্টাইজিং করা নিষিদ্ধ।</p>
-            </div>
-            <div class="rule-card">
-                <h4>🤝 Active Staff</h4>
-                <p>যেকোনো সমস্যায় আমাদের স্টাফদের সাথে ডিসকর্ড বা গেমে যোগাযোগ করুন।</p>
-            </div>
+            <div class="rule-card"><h4>🚫 No PvP</h4><p>এখানে শান্তিতে সারভাইভ করুন।</p></div>
+            <div class="rule-card"><h4>🛡️ No Griefing</h4><p>কারো প্রপার্টি চুরি করলে সরাসরি ব্যান।</p></div>
+            <div class="rule-card"><h4>🛑 No Hacking</h4><p>হ্যাক ব্যবহার করলে কোনো সতর্কতা ছাড়াই ব্যান।</p></div>
+            <div class="rule-card"><h4>💬 Respect</h4><p>সব প্লেয়ারের সাথে ভালো ব্যবহার করুন।</p></div>
         </div>
     </section>
 
-    <section id="status" class="page-section">
+    <section id="status" class="page-section" style="text-align: center;">
         <h2 style="color: #ff4d4d;">SERVER STATUS</h2>
         <div style="background: rgba(255,255,255,0.05); max-width: 400px; margin: 0 auto; padding: 40px; border-radius: 20px; border: 1px solid #ff4d4d;">
-            <div id="statText" style="font-size: 1.5rem; font-weight: bold; color: #ff4d4d;">Checking...</div>
+            <div id="statText" style="font-size: 1.5rem; font-weight: bold;">Checking...</div>
             <div style="font-size: 2.5rem; margin: 20px 0; font-weight: bold;" id="onlineCount">0 / 0</div>
-            <p id="pingDisplay">Ping: Calculating...</p>
         </div>
     </section>
 
     <div class="footer-ip">
-        <h3 style="margin-bottom: 20px;">Join Delux SMP Now!</h3>
         <div class="ip-copy" onclick="copyIP()">
             <span id="ipText" style="font-weight: bold; font-size: 1.5rem; display: block;">play.deluxsmp.fun</span>
-            <span style="font-size: 0.9rem; opacity: 0.8;">Port: 20006 (Click to Copy)</span>
+            <span style="font-size: 0.9rem; opacity: 0.8;">Port: 20006</span>
         </div>
-        <p style="margin-top: 40px; opacity: 0.4; font-size: 0.8rem;">&copy; 2026 Delux SMP | Proudly Hosted in BD</p>
     </div>
 
     <script>
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
-
-        function showSection(sectionId) {
+        function showSection(id) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active-section'));
-            document.getElementById(sectionId).classList.add('active-section');
-            toggleSidebar();
+            document.getElementById(id).classList.add('active-section');
+            if(window.innerWidth < 768) toggleSidebar();
         }
-
         function copyIP() {
             navigator.clipboard.writeText("play.deluxsmp.fun");
-            alert("Server IP Copied!");
+            alert("IP Copied!");
         }
-
         function updateStatus() {
             fetch('https://api.mcstatus.io/v2/status/java/play.deluxsmp.fun:20006')
-                .then(r => r.json())
-                .then(data => {
-                    const text = document.getElementById('statText');
-                    const players = document.getElementById('onlineCount');
+                .then(r => r.json()).then(data => {
+                    const t = document.getElementById('statText');
+                    const p = document.getElementById('onlineCount');
                     if(data.online) {
-                        text.innerText = "SERVER ONLINE";
-                        text.style.color = "#00ffaa";
-                        players.innerText = data.players.online + " / " + data.players.max;
-                        document.getElementById('pingDisplay').innerText = "Ping: Stable";
-                    } else {
-                        text.innerText = "SERVER OFFLINE";
-                        text.style.color = "#ff4d4d";
-                    }
-                }).catch(() => { document.getElementById('statText').innerText = "ERROR"; });
+                        t.innerText = "SERVER ONLINE"; t.style.color = "#00ffaa";
+                        p.innerText = data.players.online + " / " + data.players.max;
+                    } else { t.innerText = "OFFLINE"; t.style.color = "#ff4d4d"; }
+                }).catch(() => {});
         }
-        updateStatus();
-        setInterval(updateStatus, 30000);
+        updateStatus(); setInterval(updateStatus, 30000);
     </script>
 </body>
 </html>
