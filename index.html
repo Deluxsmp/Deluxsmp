@@ -54,7 +54,7 @@
         .sidebar a:hover { background: #ff4d4d; padding-left: 35px; }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 25px; color: #ff4d4d; cursor: pointer; }
 
-        /* --- Staff Section Styles --- */
+        /* --- Staff Section Styles (Heads Removed) --- */
         .staff-section {
             padding: 20px 25px;
             margin-top: auto; 
@@ -66,16 +66,12 @@
             margin-bottom: 15px; font-weight: bold; text-transform: uppercase;
         }
         .staff-item {
-            display: flex; align-items: center; margin-bottom: 12px;
+            display: flex; align-items: center; margin-bottom: 15px;
+            padding-left: 5px; border-left: 2px solid rgba(255, 77, 77, 0.3);
         }
-        .mc-head {
-            width: 32px; height: 32px; border-radius: 4px;
-            image-rendering: pixelated; border: 2px solid rgba(255, 77, 77, 0.4);
-            background: #222;
-        }
-        .staff-info { display: flex; flex-direction: column; margin-left: 12px; }
-        .staff-role { font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
-        .staff-name { font-size: 13px; color: #eee; font-weight: 600; }
+        .staff-info { display: flex; flex-direction: column; margin-left: 10px; }
+        .staff-role { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
+        .staff-name { font-size: 14px; color: #eee; font-weight: 600; margin-top: 2px; }
         
         /* Role Colors */
         .owner-color { color: #ff4d4d; }
@@ -159,7 +155,6 @@
             <p class="staff-title">MANAGEMENT</p>
             
             <div class="staff-item">
-                <img src="https://mc-heads.net/avatar/steve/32" class="mc-head" alt="Owner">
                 <div class="staff-info">
                     <span class="staff-role owner-color">Owner</span>
                     <span class="staff-name">RX_SavageX</span>
@@ -167,7 +162,6 @@
             </div>
 
             <div class="staff-item">
-                <img src="https://mc-heads.net/avatar/steve/32" class="mc-head" alt="Co-Owner">
                 <div class="staff-info">
                     <span class="staff-role co-owner-color">Co-Owner</span>
                     <span class="staff-name">katarnak_Tamim</span>
@@ -175,7 +169,6 @@
             </div>
 
             <div class="staff-item">
-                <img src="https://mc-heads.net/avatar/steve/32" class="mc-head" alt="Developer">
                 <div class="staff-info">
                     <span class="staff-role dev-color">Developer</span>
                     <span class="staff-name">Itz_Dhrubo</span>
@@ -287,4 +280,4 @@
         });
     </script>
 </body>
-    </html>
+</html>
