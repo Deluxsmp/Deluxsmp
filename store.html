@@ -79,9 +79,9 @@
 
             <div id="checkout-form">
                 <input type="text" id="username" placeholder="আপনার Minecraft নাম লিখুন (যেমন: Player123)" required>
+                <input type="email" id="useremail" placeholder="আপনার ইমেইল অ্যাড্রেস লিখুন" required>
                 <input type="text" id="phone" placeholder="আপনার বিকাশ নাম্বার" required>
                 <input type="text" id="trxid" placeholder="ট্রানজেকশন ID (TrxID)" required>
-                <input type="email" id="useremail" placeholder="আপনার ইমেইল অ্যাড্রেস লিখুন" required>
                 <button class="buy-now" style="margin-top: 15px;" onclick="sendToDiscord()">অর্ডার কনফার্ম করুন</button>
             </div>
         </div>
@@ -120,11 +120,12 @@
 
         function sendToDiscord() {
             const user = document.getElementById('username').value;
+            const email = document.getElementById('useremail').value;
             const phone = document.getElementById('phone').value;
             const trx = document.getElementById('trxid').value;
             const total = document.getElementById('total-price').innerText;
 
-            if(!user || cart.length === 0 || !phone || !trx) return alert("সবগুলো তথ্য সঠিকভাবে পূরণ করুন!");
+            if(!user || !email || cart.length === 0 || !phone || !trx) return alert("সবগুলো তথ্য সঠিকভাবে পূরণ করুন!");
 
             const items = cart.map(i => i.name).join(", ");
             const message = {
@@ -134,6 +135,7 @@
                     color: 16723277,
                     fields: [
                         { name: "প্লেয়ার নাম", value: user, inline: true },
+                        { name: "ইমেইল", value: email, inline: true },
                         { name: "বিকাশ নাম্বার", value: phone, inline: true },
                         { name: "ট্রানজেকশন ID", value: trx, inline: false },
                         { name: "আইটেমসমূহ", value: items },
@@ -149,7 +151,14 @@
                 body: JSON.stringify(message)
             }).then(() => {
                 alert("অর্ডার সফল! এডমিন চেক করে র‍্যাঙ্ক দিয়ে দিবে।");
-                cart = []; updateCart(); toggleCart();
+                cart = []; 
+                updateCart(); 
+                toggleCart();
+                // Form cleanup
+                document.getElementById('username').value = "";
+                document.getElementById('useremail').value = "";
+                document.getElementById('phone').value = "";
+                document.getElementById('trxid').value = "";
             }).catch(() => alert("সমস্যা হয়েছে, আবার চেষ্টা করুন।"));
         }
     </script>
