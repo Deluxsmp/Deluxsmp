@@ -157,7 +157,9 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+        // ফায়ারবেস কনফিগ
         const firebaseConfig = {
           apiKey: "AIzaSyB74QyFPuj7W7-7uncbVPdZ0vvHIZxGQDc",
           authDomain: "delux-3ad45.firebaseapp.com",
@@ -170,20 +172,38 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
+        // লগইন মোডাল ওপেন/ক্লোজ
         window.toggleAuth = function() {
             const modal = document.getElementById('authModal');
             modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        window.loginWithGoogle = function() {
-            signInWithPopup(auth, provider).then((result) => {
-                alert("স্বাগতম, " + result.user.displayName);
+        // গুগল লগইন এবং ডেটাবেস আপডেট
+        window.loginWithGoogle = async function() {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+
+                // ইউজারের তথ্য Firestore ডেটাবেসে সেভ করা
+                await setDoc(doc(db, "users", user.uid), {
+                    uid: user.uid,
+                    displayName: user.displayName,
+                    email: user.email,
+                    photoURL: user.photoURL,
+                    lastLogin: new Date()
+                }, { merge: true });
+
+                alert("স্বাগতম, " + user.displayName);
                 toggleAuth();
-            }).catch((err) => alert("Error: " + err.message));
+            } catch (err) {
+                alert("Error: " + err.message);
+            }
         }
 
+        // লগইন স্ট্যাটাস মনিটর করা
         onAuthStateChanged(auth, (user) => {
             const loginBtn = document.getElementById('mainLoginBtn');
             if (user) {
@@ -197,6 +217,7 @@
     </script>
 
     <script>
+        // আইপি কপি ফাংশন
         function copyIP() {
             const ip = document.getElementById('serverIP').innerText;
             navigator.clipboard.writeText(ip).then(() => {
@@ -207,6 +228,7 @@
             });
         }
 
+        // সার্ভার স্ট্যাটাস আপডেট
         function updateStatus() {
             fetch('https://api.mcstatus.io/v2/status/java/play.deluxsmp.fun:20006')
                 .then(response => response.json())
@@ -230,4 +252,4 @@
         setInterval(updateStatus, 30000);
     </script>
 </body>
-</html>
+    </html>
