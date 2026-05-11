@@ -12,13 +12,15 @@
             background-color: #050505; color: white; overflow-x: hidden;
         }
 
-        /* প্রিমিয়াম ব্যাকগ্রাউন্ড সেটআপ */
+        /* আপডেট করা প্রিমিয়াম ব্যাকগ্রাউন্ড */
         .bg-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.9)), 
-                        url('https://i.imgur.com/vHqQ8rP.png'); 
-            background-size: cover; background-position: center;
-            filter: brightness(0.8) contrast(1.1);
+            /* এখানে একটি হাই-কোয়ালিটি টেক্সট-হীন ইমেজ ব্যবহার করা হয়েছে */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), 
+                        url('https://images.wallpapersden.com/image/download/minecraft-night-minimalist-hd_bG1lZ2uUmZqaraWkpJRmbmdlrWZlbWU.jpg'); 
+            background-size: cover; 
+            background-position: center;
+            background-attachment: fixed;
         }
 
         /* মাইনক্রাফট অ্যানিমেটেড ক্যানভাস */
@@ -30,7 +32,7 @@
         nav {
             position: fixed; top: 0; width: 100%; height: 60px;
             background: rgba(0, 0, 0, 0.4); 
-            backdrop-filter: blur(15px); /* ব্লার ইফেক্ট */
+            backdrop-filter: blur(15px);
             display: flex; align-items: center;
             justify-content: space-between; padding: 0 20px; z-index: 1000;
             box-sizing: border-box; border-bottom: 1px solid rgba(255, 77, 77, 0.2);
