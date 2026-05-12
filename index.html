@@ -12,7 +12,6 @@
             background-color: #050505; color: white; overflow-x: hidden;
         }
 
-        /* আপডেট করা প্রিমিয়াম ব্যাকগ্রাউন্ড */
         .bg-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), 
@@ -22,7 +21,6 @@
             background-attachment: fixed;
         }
 
-        /* মাইনক্রাফট অ্যানিমেটেড ক্যানভাস */
         #mc-canvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; pointer-events: none;
@@ -54,7 +52,6 @@
         .sidebar a:hover { background: #ff4d4d; padding-left: 35px; }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 25px; color: #ff4d4d; cursor: pointer; }
 
-        /* Staff Section Styles */
         .staff-section {
             padding: 20px 25px;
             margin-top: auto; 
@@ -73,9 +70,11 @@
         .staff-role { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
         .staff-name { font-size: 14px; color: #eee; font-weight: 600; margin-top: 2px; }
         
+        /* Roles Colors */
         .owner-color { color: #ff4d4d; }
         .co-owner-color { color: #ffcc00; }
         .dev-color { color: #55ff55; }
+        .accountant-color { color: #00d4ff; } /* এখন নীল রঙে দেখাবে */
 
         .page-section { display: none; padding: 120px 20px 40px; min-height: 80vh; animation: fadeIn 0.6s ease-out; }
         .active-section { display: block; }
@@ -129,7 +128,6 @@
         }
         .ip-copy:hover { background: rgba(255, 77, 77, 0.2); transform: scale(1.05); }
 
-        /* নতুন উজ্জ্বল ডেভেলপার ক্রেডিট */
         .dev-credit-footer {
             text-align: center;
             padding-bottom: 40px;
@@ -138,7 +136,7 @@
             letter-spacing: 1px;
         }
         .dev-credit-footer span {
-            color: #55ff55; /* ডেভেলপার কালার */
+            color: #55ff55; 
             font-weight: bold;
             text-shadow: 0 0 8px rgba(85, 255, 85, 0.3);
         }
@@ -190,12 +188,6 @@
                     <span class="staff-name">Mahmudul Hasan</span>
                 </div>
             </div>
-            <div class="staff-item">
-                <div class="staff-info">
-                    <span class="staff-role mod-color">-</span>
-                    <span class="staff-name">mod</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -235,7 +227,6 @@
         </div>
     </div>
 
-    <!-- এখানে আপনার নাম সব সময় দেখা যাবে -->
     <div class="dev-credit-footer">
         Developed by <span>Itz_Dhrubo</span>
     </div>
