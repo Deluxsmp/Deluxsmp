@@ -54,7 +54,7 @@
         .sidebar a:hover { background: #ff4d4d; padding-left: 35px; }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 25px; color: #ff4d4d; cursor: pointer; }
 
-        /* --- Staff Section Styles (Heads Removed) --- */
+        /* Staff Section Styles */
         .staff-section {
             padding: 20px 25px;
             margin-top: auto; 
@@ -73,7 +73,6 @@
         .staff-role { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
         .staff-name { font-size: 14px; color: #eee; font-weight: 600; margin-top: 2px; }
         
-        /* Role Colors */
         .owner-color { color: #ff4d4d; }
         .co-owner-color { color: #ffcc00; }
         .dev-color { color: #55ff55; }
@@ -122,13 +121,27 @@
         .rule-card:hover { border-color: #ff4d4d; transform: translateY(-5px); background: rgba(255, 77, 77, 0.05); }
         .rule-card h4 { color: #ff4d4d; margin-top: 0; font-size: 1.3rem; }
 
-        .footer-ip { padding: 80px 20px; text-align: center; }
+        .footer-ip { padding: 80px 20px 20px; text-align: center; }
         .ip-copy {
             background: rgba(255, 77, 77, 0.1); padding: 20px 50px; border-radius: 20px;
             display: inline-block; border: 2px solid #ff4d4d; cursor: pointer;
             backdrop-filter: blur(10px); transition: 0.3s; box-shadow: 0 0 20px rgba(255, 77, 77, 0.2);
         }
         .ip-copy:hover { background: rgba(255, 77, 77, 0.2); transform: scale(1.05); }
+
+        /* নতুন উজ্জ্বল ডেভেলপার ক্রেডিট */
+        .dev-credit-footer {
+            text-align: center;
+            padding-bottom: 40px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 1px;
+        }
+        .dev-credit-footer span {
+            color: #55ff55; /* ডেভেলপার কালার */
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(85, 255, 85, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -153,21 +166,18 @@
 
         <div class="staff-section">
             <p class="staff-title">MANAGEMENT</p>
-            
             <div class="staff-item">
                 <div class="staff-info">
                     <span class="staff-role owner-color">Owner</span>
                     <span class="staff-name">RX_SavageX</span>
                 </div>
             </div>
-
             <div class="staff-item">
                 <div class="staff-info">
                     <span class="staff-role co-owner-color">Co-Owner</span>
                     <span class="staff-name">katarnak_Tamim</span>
                 </div>
             </div>
-
             <div class="staff-item">
                 <div class="staff-info">
                     <span class="staff-role dev-color">Developer</span>
@@ -211,6 +221,11 @@
             <span id="ipText" style="font-weight: bold; font-size: 1.8rem; display: block; color: #fff;">play.deluxsmp.fun</span>
             <span style="font-size: 1rem; opacity: 0.9; color: #ff4d4d;">Port: 20006 (Click to Copy)</span>
         </div>
+    </div>
+
+    <!-- এখানে আপনার নাম সব সময় দেখা যাবে -->
+    <div class="dev-credit-footer">
+        Developed by <span>Itz_Dhrubo</span>
     </div>
 
     <script>
