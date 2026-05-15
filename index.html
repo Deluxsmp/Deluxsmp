@@ -8,6 +8,50 @@
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* --- Preloader Styles --- */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: #050505;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease;
+        }
+
+        .intro-content {
+            text-align: center;
+        }
+
+        .intro-text {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            font-weight: 700;
+            color: #ff4d4d;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            opacity: 0;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            text-shadow: 0 0 20px rgba(255, 77, 77, 0.5);
+        }
+
+        /* Animations */
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translate(-50%, -40%); }
+            20% { opacity: 1; transform: translate(-50%, -50%); }
+            80% { opacity: 1; transform: translate(-50%, -50%); }
+            100% { opacity: 0; transform: translate(-50%, -60%); }
+        }
+
+        .show-welcome { animation: fadeInOut 2.5s forwards; }
+        .show-dev { animation: fadeInOut 2.5s forwards; animation-delay: 2.6s; }
+
+        /* --- Existing Styles --- */
         body { 
             margin: 0; font-family: 'Hind Siliguri', sans-serif; 
             background-color: #050505; color: white; overflow-x: hidden;
@@ -71,11 +115,10 @@
         .staff-role { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
         .staff-name { font-size: 14px; color: #eee; font-weight: 600; margin-top: 2px; }
         
-        /* Roles Colors */
         .owner-color { color: #ff4d4d; }
         .co-owner-color { color: #ffcc00; }
         .dev-color { color: #55ff55; }
-        .accountant-color { color: #00d4ff; } /* এখন নীল রঙে দেখাবে */
+        .accountant-color { color: #00d4ff; }
 
         .page-section { display: none; padding: 120px 20px 40px; min-height: 80vh; animation: fadeIn 0.6s ease-out; }
         .active-section { display: block; }
@@ -145,6 +188,14 @@
 </head>
 <body>
 
+    <!-- Intro Preloader -->
+    <div id="preloader">
+        <div class="intro-content">
+            <div id="welcome-text" class="intro-text show-welcome">WELCOME TO DELUX SMP</div>
+            <div id="dev-text" class="intro-text show-dev" style="color: #55ff55;">Developed by Itz_Dhrubo</div>
+        </div>
+    </div>
+
     <div class="bg-overlay"></div>
     <canvas id="mc-canvas"></canvas>
 
@@ -187,12 +238,6 @@
                 <div class="staff-info">
                     <span class="staff-role accountant-color">accountant</span>
                     <span class="staff-name">Mahmudul Hasan</span>
-                </div>
-            </div>
-            <div class="staff-item">
-                <div class="staff-info">
-                    <span class="staff-role accountant-color">-</span>
-                    <span class="staff-name">?</span>
                 </div>
             </div>
         </div>
@@ -239,6 +284,17 @@
     </div>
 
     <script>
+        // Preloader Logic
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('preloader');
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 800);
+            }, 5500); // Intro show time (~5.5 seconds total)
+        });
+
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
         function showSection(id) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active-section'));
