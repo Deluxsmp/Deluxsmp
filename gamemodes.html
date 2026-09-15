@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="index,follow">
+<title>Vortex Tier — Game Modes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="gamemodes-page">
+<header class="nav">
+  <a class="logo" href="index.html">VORTEX TIER</a>
+  <nav class="navlinks">
+    <a href="index.html">Home</a>
+    <a href="rankings.html">Rankings</a>
+    <a class="active" href="gamemodes.html">Game Modes</a>
+    <a href="https://discord.com" target="_blank" rel="noopener">Discord</a>
+  </nav>
+</header>
+
+<main class="modes-wrap">
+  <section class="modes-heading">
+    <div>
+      <div class="eyebrow"><i></i> COMPETITIVE MODES</div>
+      <h1>Choose a Game Mode</h1>
+      <p>Explore every Vortex Tier category. Rankings and player data are powered directly by <code>players.js</code>.</p>
+    </div>
+    <a class="mode-directory-rank-btn" href="rankings.html?mode=overall">View Overall Rankings <span>→</span></a>
+  </section>
+
+  <section id="gameModes" class="game-mode-grid" aria-label="Game modes"></section>
+</main>
+
+<footer>Vortex Tier • Minecraft PvP Rankings</footer>
+
+<script src="players.js"></script>
+<script>
+const MODES = [
+  {id:'overall', name:'Overall', icon:'🏆', desc:'Combined performance across all tested modes.', accent:'overall'},
+  {id:'vanilla', name:'Vanilla', icon:'🟪', desc:'Classic Minecraft combat with a clean vanilla ruleset.', accent:'vanilla'},
+  {id:'uhc', name:'UHC', icon:'❤️', desc:'High-pressure combat where positioning and resources matter.', accent:'uhc'},
+  {id:'pot', name:'Pot', icon:'🧪', desc:'Fast-paced potion PvP focused on mechanics and movement.', accent:'pot'},
+  {id:'nethop', name:'NetHop', icon:'🟣', desc:'Netherite-focused movement and high-intensity combat.', accent:'nethop'},
+  {id:'smp', name:'SMP', icon:'🟢', desc:'SMP-style PvP with the community’s competitive rankings.', accent:'smp'},
+  {id:'sword', name:'Sword', icon:'🗡️', desc:'Pure sword mechanics, combos, spacing and timing.', accent:'sword'},
+  {id:'axe', name:'Axe', icon:'🪓', desc:'Axe combat built around timing, shields and precision.', accent:'axe'},
+  {id:'mace', name:'Mace', icon:'🔨', desc:'Mace PvP with movement, impact and clutch mechanics.', accent:'mace'}
+];
+const players = typeof VORTEX_PLAYERS !== 'undefined' ? VORTEX_PLAYERS : [];
+function testedCount(id){
+  if(id==='overall') return players.length;
+  return players.filter(p => p.results && p.results[id] && String(p.results[id].tier||'').trim()).length;
+}
+function topTier(id){
+  if(id==='overall') return players.length ? Math.min(...players.map(p=>Number(p.position)||999)) : null;
+  const nums=players.map(p=>String(p.results?.[id]?.tier||'').match(/[1-5]$/)?.[0]).filter(Boolean).map(Number);
+  return nums.length ? Math.min(...nums) : null;
+}
+const grid=document.getElementById('gameModes');
+grid.innerHTML=MODES.map(m=>{
+  const count=testedCount(m.id), tier=topTier(m.id);
+  const label=m.id==='overall'?'Ranked Players':count===1?'Tested Player':'Tested Players';
+  const best=tier ? (m.id==='overall' ? '#'+tier : 'Tier '+tier) : '—';
+  return `<a class="game-mode-card mode-${m.accent}" href="rankings.html?mode=${encodeURIComponent(m.id)}">
+    <div class="game-mode-card-top"><span class="game-mode-icon">${m.icon}</span><span class="open-arrow">↗</span></div>
+    <div class="game-mode-name">${m.name}</div>
+    <p>${m.desc}</p>
+    <div class="game-mode-stats"><span><strong>${count}</strong> ${label}</span><span><strong>${best}</strong> Best</span></div>
+  </a>`;
+}).join('');
+</script>
+</body>
+</html>
